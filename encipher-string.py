@@ -20,6 +20,27 @@ It should preserve capitalization, whitespace, and any special characters:
 
 def rot_encode(shift, txt):
     """Encode `txt` by shifting its characters to the right."""
+    new_txt = ''
+    min_cap = ord('A')
+    max_cap = ord('Z')
+    min_lower = ord('a')
+    max_lower = ord('z')
+
+    # handle out of bounds chars
+    for item in txt:
+        if item.isupper():
+            if ord(item) + shift > max_cap:
+                new_txt += chr(ord(item) + shift - 26)
+            else:
+                new_txt += chr(ord(item) + shift)
+        elif item.islower():
+            if ord(item) + shift > max_lower:
+                new_txt += chr(ord(item) + shift - 26)
+            else:
+                new_txt += chr(ord(item) + shift)
+        elif item.isalpha() == False:
+            new_txt += item
+    return new_txt
 
 
 if __name__ == '__main__':
